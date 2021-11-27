@@ -6,6 +6,8 @@ const librarySchema = new Schema({
     type: String,
     required: true,
   },
+  latitude: { type: Number },
+  longitude: { type: Number },
   owner: {
     type: Schema.Types.ObjectId,
     ref: "Admin",
