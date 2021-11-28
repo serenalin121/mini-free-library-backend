@@ -24,6 +24,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/library", routes.libraries);
+app.use("/books", routes.books);
 
 app.listen(PORT, () => {
   console.log(`Connected on Port: ${PORT}`);
