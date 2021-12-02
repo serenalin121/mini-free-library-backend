@@ -1,7 +1,7 @@
 const db = require("../models");
 
 const index = (req, res) => {
-  db.Book.find({}, (err, books) => {
+  db.Book.find({ locationID: req.params.libId }, (err, books) => {
     if (err) return res.status(400).json({ err: err.message });
 
     return res.status(200).json(books);
