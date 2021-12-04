@@ -1,3 +1,4 @@
+const fetch = require("node-fetch");
 const db = require("../models");
 
 const index = (req, res) => {
@@ -14,6 +15,24 @@ const create = (req, res) => {
 
     return res.status(200).json(createdBook);
   });
+};
+
+const addNewBook = (req, res) => {
+  fetch(`https://openlibrary.org/isbn/${req.body.ISBN}.json`)
+    .then((res) => res.json())
+    .then((bookData) => {
+      newBook = {
+        name: bookData.title,
+        ISBN: bookData.isbn_13[0],
+        locationID: req.body.locationID,
+        locationType: "Library",
+      };
+      db.Book.create(newBook, (err, createdBook) => {
+        if (err) return res.status(400).json({ err: err.message });
+
+        return res.status(200).json(createdBook);
+      });
+    });
 };
 
 const update = (req, res) => {
@@ -77,9 +96,10 @@ const returnBook = (req, res) => {
 
 module.exports = {
   index,
-  create,
+  // create,
   update,
   destroy,
   checkout,
   returnBook,
+  addNewBook,
 };
