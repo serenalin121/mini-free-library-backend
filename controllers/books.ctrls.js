@@ -60,7 +60,7 @@ const checkout = (req, res) => {
     req.params.id,
     {
       $set: {
-        locationID: "userID",
+        locationID: req.body.userID,
         locationType: "User",
       },
     },
@@ -68,6 +68,7 @@ const checkout = (req, res) => {
     (err, updatedBook) => {
       if (err) return res.status(400).json({ err: err.message });
 
+      console.log(updatedBook);
       return res.status(200).json(updatedBook);
     }
   );
