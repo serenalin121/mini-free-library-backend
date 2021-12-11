@@ -32,7 +32,8 @@ app.use(
 );
 
 const isAuthenticated = (req, res, next) => {
-  console.log(req.session);
+  console.log("check auth");
+  console.log(req.session.currentUser);
 
   if (req.session.currentUser) {
     return next();

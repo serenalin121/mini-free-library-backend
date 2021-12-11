@@ -8,7 +8,16 @@ const index = (req, res) => {
   });
 };
 
+const myLibrary = (req, res) => {
+  db.Library.find({ owner: req.session.currentUser._id }, (err, libraries) => {
+    if (err) return res.status(400).json({ err: err.message });
+
+    return res.status(200).json(libraries);
+  });
+};
+
 const create = (req, res) => {
+  req.body.owner = req.session.currentUser._id;
   db.Library.create(req.body, (err, createdLibrary) => {
     if (err) return res.status(400).json({ err: err.message });
 
@@ -41,6 +50,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   index,
+  myLibrary,
   create,
   update,
   destroy,

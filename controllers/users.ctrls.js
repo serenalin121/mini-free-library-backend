@@ -25,6 +25,10 @@ const signin = (req, res) => {
       if (foundUser) {
         if (bcrypt.compareSync(req.body.password, foundUser.password)) {
           req.session.currentUser = foundUser;
+
+          console.log("signin");
+          console.log(req.session.currentUser);
+
           res.status(200).json(foundUser);
         } else {
           res
