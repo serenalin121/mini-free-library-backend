@@ -46,6 +46,7 @@ app.use(express.json());
 app.use("/library", isAuthenticated, routes.libraries);
 app.use("/books", isAuthenticated, routes.books);
 app.use("/users", routes.users);
+app.use("/admins", routes.admins);
 
 app.listen(PORT, () => {
   console.log(`Connected on Port: ${PORT}`);
