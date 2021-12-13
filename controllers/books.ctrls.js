@@ -1,9 +1,24 @@
+const mongoose = require("mongoose");
+
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const db = require("../models");
 
 const index = (req, res) => {
   db.Book.find({ locationID: req.params.libId }, (err, books) => {
+    if (err) return res.status(400).json({ err: err.message });
+
+    return res.status(200).json(books);
+  });
+};
+
+const getCheckoutBooks = (req, res) => {
+  console.log(req.session.currentUser._id);
+
+  const locationID = mongoose.Types.ObjectId(req.session.currentUser._id);
+  console.log(locationID);
+
+  db.Book.find({ locationID }, (err, books) => {
     if (err) return res.status(400).json({ err: err.message });
 
     return res.status(200).json(books);
@@ -60,7 +75,7 @@ const checkout = (req, res) => {
     req.params.id,
     {
       $set: {
-        locationID: req.body.userID,
+        locationID: req.session.currentUser._id,
         locationType: "User",
       },
     },
@@ -99,4 +114,5 @@ module.exports = {
   destroy,
   checkout,
   returnBook,
+  getCheckoutBooks,
 };
