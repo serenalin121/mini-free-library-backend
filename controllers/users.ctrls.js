@@ -11,7 +11,11 @@ const signup = (req, res) => {
     if (err) {
       res.status(400).json({ err: err.message });
     } else {
-      req.session.currentUser = createdUser;
+      req.session.passport = {
+        user: foundUser,
+      };
+      req.session.passport.user.isAdmin = false;
+
       res.status(200).json(createdUser);
     }
   });
@@ -24,10 +28,10 @@ const signin = (req, res) => {
     } else {
       if (foundUser) {
         if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-          req.session.currentUser = foundUser;
-
-          console.log("signin");
-          console.log(req.session.currentUser);
+          req.session.passport = {
+            user: foundUser,
+          };
+          req.session.passport.user.isAdmin = false;
 
           res.status(200).json(foundUser);
         } else {
@@ -43,7 +47,8 @@ const signin = (req, res) => {
 };
 
 const renew = (req, res) => {
-  res.status(200).json({ result: !!req.session.currentUser });
+  console.log("renew");
+  res.status(200).json(req.session.passport?.user);
 };
 
 const signout = (req, res) => {

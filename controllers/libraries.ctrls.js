@@ -9,15 +9,20 @@ const index = (req, res) => {
 };
 
 const myLibrary = (req, res) => {
-  db.Library.find({ owner: req.session.currentUser._id }, (err, libraries) => {
-    if (err) return res.status(400).json({ err: err.message });
+  //TODO: use passport
+  db.Library.find(
+    { owner: req.session.passport.user._id },
+    (err, libraries) => {
+      if (err) return res.status(400).json({ err: err.message });
 
-    return res.status(200).json(libraries);
-  });
+      return res.status(200).json(libraries);
+    }
+  );
 };
 
 const create = (req, res) => {
-  req.body.owner = req.session.currentUser._id;
+  //TODO: use passport
+  req.body.owner = req.session.passport.user._id;
   db.Library.create(req.body, (err, createdLibrary) => {
     if (err) return res.status(400).json({ err: err.message });
 

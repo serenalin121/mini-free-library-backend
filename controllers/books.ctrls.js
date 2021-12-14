@@ -13,10 +13,7 @@ const index = (req, res) => {
 };
 
 const getCheckoutBooks = (req, res) => {
-  console.log(req.session.currentUser._id);
-
-  const locationID = mongoose.Types.ObjectId(req.session.currentUser._id);
-  console.log(locationID);
+  const locationID = mongoose.Types.ObjectId(req.session.passport?.user?._id);
 
   db.Book.find({ locationID }, (err, books) => {
     if (err) return res.status(400).json({ err: err.message });
@@ -75,7 +72,8 @@ const checkout = (req, res) => {
     req.params.id,
     {
       $set: {
-        locationID: req.session.currentUser._id,
+        //TODO: use passport
+        locationID: req.session.passport.user._id,
         locationType: "User",
       },
     },

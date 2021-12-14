@@ -11,7 +11,11 @@ const signup = (req, res) => {
     if (err) {
       res.status(400).json({ err: err.message });
     } else {
-      req.session.currentUser = createdAdmin;
+      req.session.passport = {
+        user: createdAdmin,
+      };
+      req.session.passport.user.isAdmin = true;
+
       res.status(200).json(createdAdmin);
     }
   });
@@ -24,7 +28,10 @@ const signin = (req, res) => {
     } else {
       if (foundAdmin) {
         if (bcrypt.compareSync(req.body.password, foundAdmin.password)) {
-          req.session.currentUser = foundAdmin;
+          req.session.passport = {
+            user: foundAdmin,
+          };
+          req.session.passport.user.isAdmin = true;
 
           res.status(200).json(foundAdmin);
         } else {
@@ -39,18 +46,13 @@ const signin = (req, res) => {
   });
 };
 
-const renew = (req, res) => {
-  res.status(200).json({ result: !!req.session.currentUser });
-};
-
 const signout = (req, res) => {
   req.session.destroy(() => {
-    res.status(200).json({ message: "Admin signed out" });
+    res.status(200).json({ message: "User signed out" });
   });
 };
 
 module.exports = {
-  renew,
   signup,
   signin,
   signout,
