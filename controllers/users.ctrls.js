@@ -32,7 +32,6 @@ const signin = (req, res) => {
             user: foundUser,
           };
           req.session.passport.user.isAdmin = false;
-          req.session.currentUser = foundUser;
 
           console.log("sign in", req.session);
 
@@ -51,7 +50,7 @@ const signin = (req, res) => {
 
 const renew = (req, res) => {
   console.log("renew", req.session);
-  res.status(200).json(req.session.passport?.user || req.session.currentUser);
+  res.status(200).json(req.session.passport?.user);
 };
 
 const signout = (req, res) => {
