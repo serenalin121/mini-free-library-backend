@@ -5,6 +5,8 @@ const express = require("express");
 const cors = require("cors");
 const routes = require("./routes");
 const session = require("express-session");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const { URLSearchParams } = require("url");
@@ -30,7 +32,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(express.cookieParser());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
   session({
