@@ -11,10 +11,7 @@ const { URLSearchParams } = require("url");
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-const whitelist = [
-  "http://localhost:3000",
-  "https://mini-free-library-frontend.herokuapp.com",
-];
+const whitelist = ["http://localhost:3000", process.env.HEROKUFRONTEND];
 
 const corsOptions = {
   origin: function (origin, callback) {
