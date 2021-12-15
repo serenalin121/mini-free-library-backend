@@ -13,7 +13,6 @@ const adminSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
   },
   isAdmin: Boolean,
 });
