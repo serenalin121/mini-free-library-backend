@@ -56,9 +56,9 @@ app.use(passport.session());
 
 const isAuthenticated = (req, res, next) => {
   console.log("check auth");
-  console.log(req.session.passport);
+  console.log(req.session);
 
-  if (req.session.passport?.user) {
+  if (req.session.passport?.user || req.session.currentUser) {
     return next();
   } else {
     res.status(403).json({ msg: "Signin required" });
