@@ -30,6 +30,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.cookieParser());
 
 app.use(
   session({
@@ -40,10 +41,6 @@ app.use(
       uri: process.env.MONGODB_URI,
       collection: "mySessions",
     }),
-    // cookie: {
-    // sameSite: "none",
-    // secure: true,
-    // },
   })
 );
 
