@@ -46,6 +46,7 @@ passport.use(
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
+      console.log("in google strategy");
       User.findOrCreate(
         { email: profile.emails[0].value },
         function (err, user) {
