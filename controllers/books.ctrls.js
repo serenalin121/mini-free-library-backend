@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-
+const db = require("../models");
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
-const db = require("../models");
 
 const index = (req, res) => {
   db.Book.find({ locationID: req.params.libId }, (err, books) => {

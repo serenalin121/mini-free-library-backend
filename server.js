@@ -6,11 +6,16 @@ const cors = require("cors");
 const routes = require("./routes");
 const session = require("express-session");
 const passport = require("passport");
+const MongoDBStore = require("connect-mongodb-session")(session);
 const { URLSearchParams } = require("url");
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-const whitelist = ["http://localhost:3000", "heroku url here"];
+const whitelist = [
+  "http://localhost:3000",
+  "https://mini-free-library-frontend.herokuapp.com",
+];
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -26,11 +31,27 @@ app.use(cors(corsOptions));
 
 app.use(
   session({
-    secret: "thisIsATopSecret",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
+    store: new MongoDBStore({
+      uri: process.env.MONGODB_URI,
+      collection: "mySessions",
+    }),
+    cookie: {
+      sameSite: "none",
+      secure: true,
+    },
   })
 );
+
+// app.use(
+//   session({
+//     secret: "thisIsATopSecret",
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
 
 app.use(passport.initialize());
 app.use(passport.session());

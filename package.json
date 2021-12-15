@@ -1,6 +1,9 @@
 {
   "name": "mini-free-library-backend",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.13.0"
+  },
   "description": "a system to manage mini library",
   "main": "server.js",
   "scripts": {

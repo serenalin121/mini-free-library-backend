@@ -1,4 +1,5 @@
 const db = require("../models");
+const mongoose = require("mongoose");
 
 const index = (req, res) => {
   db.Library.find({}, (err, libraries) => {
@@ -10,14 +11,13 @@ const index = (req, res) => {
 
 const myLibrary = (req, res) => {
   //TODO: use passport
-  db.Library.find(
-    { owner: req.session.passport.user._id },
-    (err, libraries) => {
-      if (err) return res.status(400).json({ err: err.message });
-
-      return res.status(200).json(libraries);
-    }
-  );
+  const owner = mongoose.Types.ObjectId(req.session.passport?.user?._id);
+  console.log("check myLibrary" + owner);
+  db.Library.find({ owner }, (err, libraries) => {
+    if (err) return res.status(400).json({ err: err.message });
+    console.log("check myLibrary" + libraries);
+    return res.status(200).json(libraries);
+  });
 };
 
 const create = (req, res) => {

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-const connectionStr =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/mini_free_library";
+const connectionStr = process.env.MONGODB_URI;
 
 mongoose.connect(connectionStr, {
   useNewUrlParser: true,

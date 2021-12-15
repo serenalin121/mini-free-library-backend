@@ -37,8 +37,6 @@ passport.use(
         { email: profile.emails[0].value },
         function (err, user) {
           user.isAdmin = true;
-          console.log(user);
-
           return cb(null, user);
         }
       );
