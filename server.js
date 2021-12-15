@@ -36,10 +36,10 @@ app.use(
       uri: process.env.MONGODB_URI,
       collection: "mySessions",
     }),
-    // cookie: {
-    // sameSite: /"none",
-    // secure: false,
-    // },
+    cookie: {
+      SameSite: "none",
+      secure: false,
+    },
   })
 );
 
