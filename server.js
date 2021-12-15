@@ -5,8 +5,6 @@ const express = require("express");
 const cors = require("cors");
 const routes = require("./routes");
 const session = require("express-session");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const { URLSearchParams } = require("url");
@@ -21,19 +19,13 @@ const frontendUrl =
     : process.env.HEROKUFRONTEND;
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: [frontendUrl],
   credentials: true,
 };
 
+app.set("trust proxy", 1);
 app.use(cors(corsOptions));
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(
   session({
@@ -44,6 +36,10 @@ app.use(
       uri: process.env.MONGODB_URI,
       collection: "mySessions",
     }),
+    // cookie: {
+    // sameSite: /"none",
+    // secure: false,
+    // },
   })
 );
 

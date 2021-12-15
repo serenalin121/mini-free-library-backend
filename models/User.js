@@ -31,9 +31,11 @@ const User = model("User", userSchema);
 
 passport.use(User.createStrategy());
 passport.serializeUser(function (user, done) {
+  console.log("serialized", user);
   done(null, user);
 });
 passport.deserializeUser(function (user, done) {
+  console.log("deserialized", user);
   done(null, user);
 });
 passport.use(
