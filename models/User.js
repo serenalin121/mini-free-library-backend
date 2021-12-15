@@ -18,9 +18,11 @@ const userSchema = new Schema({
 });
 
 const backendUrl =
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV !== "production"
     ? "http://localhost:3003"
     : process.env.HEROKUFRONTEND;
+
+console.log(process.env.NODE_ENV, backendUrl);
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);

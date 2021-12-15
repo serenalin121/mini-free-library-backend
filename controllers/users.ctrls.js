@@ -33,6 +33,8 @@ const signin = (req, res) => {
           };
           req.session.passport.user.isAdmin = false;
 
+          console.log("sign in", req.session.passport);
+
           res.status(200).json(foundUser);
         } else {
           res
@@ -47,7 +49,7 @@ const signin = (req, res) => {
 };
 
 const renew = (req, res) => {
-  console.log("renew");
+  console.log("renew", req.session);
   res.status(200).json(req.session.passport?.user);
 };
 

@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3003;
 const whitelist = ["http://localhost:3000", process.env.HEROKUFRONTEND];
 
 const frontendUrl =
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV !== "production"
     ? "http://localhost:3000"
     : process.env.HEROKUFRONTEND;
 
@@ -40,10 +40,10 @@ app.use(
       uri: process.env.MONGODB_URI,
       collection: "mySessions",
     }),
-    cookie: {
-      sameSite: "none",
-      secure: true,
-    },
+    // cookie: {
+    // sameSite: "none",
+    // secure: true,
+    // },
   })
 );
 
