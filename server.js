@@ -13,6 +13,11 @@ const PORT = process.env.PORT || 3003;
 
 const whitelist = ["http://localhost:3000", process.env.HEROKUFRONTEND];
 
+const frontendUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : process.env.HEROKUFRONTEND;
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -83,7 +88,7 @@ app.get(
 app.get(
   "/auth/google/callback/user",
   passport.authenticate("google-user", {
-    failureRedirect: "http://localhost:3000",
+    failureRedirect: frontendUrl,
   }),
   function (req, res) {
     const query = {
@@ -92,14 +97,14 @@ app.get(
 
     const urlParameters = new URLSearchParams(query);
     // Successful authentication, redirect secrets.
-    res.redirect("http://localhost:3000/user?" + urlParameters);
+    res.redirect(`${frontendUrl}/user?${urlParameters}`);
   }
 );
 
 app.get(
   "/auth/google/callback/admin",
   passport.authenticate("google-admin", {
-    failureRedirect: "http://localhost:3000",
+    failureRedirect: frontendUrl,
   }),
   function (req, res) {
     const query = {
@@ -108,7 +113,7 @@ app.get(
 
     const urlParameters = new URLSearchParams(query);
     // Successful authentication, redirect secrets.
-    res.redirect("http://localhost:3000/admin?" + urlParameters);
+    res.redirect(`${frontendUrl}/admin?${urlParameters}`);
   }
 );
 

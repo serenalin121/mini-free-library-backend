@@ -18,6 +18,11 @@ const adminSchema = new Schema({
   isAdmin: Boolean,
 });
 
+const backendUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3003"
+    : process.env.HEROKUFRONTEND;
+
 adminSchema.plugin(passportLocalMongoose);
 adminSchema.plugin(findOrCreate);
 
@@ -29,7 +34,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:3003/auth/google/callback/admin",
+      callbackURL: `${backendUrl}/auth/google/callback/admin`,
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
