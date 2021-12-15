@@ -30,15 +30,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: process.env.SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     store: new MongoDBStore({
       uri: process.env.MONGODB_URI,
       collection: "mySessions",
     }),
     cookie: {
-      SameSite: "none",
-      secure: false,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production",
     },
   })
 );
