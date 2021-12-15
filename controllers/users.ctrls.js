@@ -34,7 +34,7 @@ const signin = (req, res) => {
           req.session.passport.user.isAdmin = false;
           req.session.currentUser = foundUser;
 
-          console.log("sign in", req.session.passport);
+          console.log("sign in", req.session);
 
           res.status(200).json(foundUser);
         } else {
