@@ -21,7 +21,7 @@ const adminSchema = new Schema({
 const backendUrl =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:3003"
-    : process.env.HEROKUFRONTEND;
+    : process.env.HEROKUBACKEND;
 
 adminSchema.plugin(passportLocalMongoose);
 adminSchema.plugin(findOrCreate);
