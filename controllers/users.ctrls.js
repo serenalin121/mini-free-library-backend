@@ -12,7 +12,7 @@ const signup = (req, res) => {
       res.status(400).json({ err: err.message });
     } else {
       req.session.passport = {
-        user: foundUser,
+        user: createdUser,
       };
       req.session.passport.user.isAdmin = false;
 
