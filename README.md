@@ -9,7 +9,7 @@ See the project in action [here](https://mini-free-library-frontend.herokuapp.co
 ## Project Description
 Have you seen those mini-libraries in your community? People put a box or crate of books in their front yard. Neighbors browse and return later. For this app, I created a system to help library owners to manage books in their libraries. The book information was pull from the Open Library API (https://openlibrary.org/developers/api). Also, this system can assist people who want to borrow a book to track the library inventory before they visit. I used Mapbox map (https://www.mapbox.com/) to display the library locations. 
 
-Both admin and user can create an account by providing email and password information. Or they can choose third party Googld log in.
+Both admin and user can create an account by providing email and password information. Or they can choose third party Google log in.
 
 ## Technology Used and Approaches
 - The website is a MERN stack project. (MongoDB, Express, React, Node)
