@@ -22,6 +22,48 @@ Both admin and user can create an account by providing email and password inform
     - Open Library API - for book information and cover image
     - Mapbox API - for admins to add a new library and display all libraries for users
 
+
+## Data Models
+For this project's database, I used mongoDB and Mongoose.
+
+```javascript
+const userSchema = new mongoose.Schema({
+    email:  { type: String, required: true, unique: true },
+    pwd: String,
+    isAdmin: Boolean
+});
+
+const adminSchema = new mongoose.Schema({
+    email:  { type: String, required: true, unique: true },
+    pwd: String,
+    isAdmin: Boolean
+});
+
+const librarySchema = new mongoose.Schema({
+    location:  { type: String, required: true },
+    latitude: { type: Number },
+    longitude: { type: Number },
+    owner: { type: Schema.Types.ObjectId, ref: "Admin" }, 
+});
+
+const bookSchema = new mongoose.Schema({
+    name:  { type: String},
+    ISBN:  { type: Number, required: true },
+    locationID: {
+       type: Schema.Types.ObjectId,
+       required: true,
+       refPath: 'locationType'
+    },
+    locationType: {
+        type: String,
+        required: true,
+        enum: ['Library', 'User']
+     }
+});
+
+```
+
+
 ## Run the Project
 - Clone this project
 - Clone the [froneend repository](https://github.com/serenalin121/mini-free-library-front-end). and follow the instructions in there
