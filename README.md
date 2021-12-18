@@ -11,13 +11,16 @@ Have you seen those mini-libraries in your community? People put a box or crate 
 
 Both admin and user can create an account by providing email and password information. Or they can choose third party Google log in.
 
+
 ## Technology Used and Approaches
 - The website is a MERN stack project. (MongoDB, Express, React, Node)
 - This app is mobile friendly.
 - The backend contains 4 different modele: admin, user, book and library. Both admin model and user model storing a user's login information. Bcrypt is used to maintain security for user passwords.
+- Mongoose Schema supporting referencing potentially different schema object id based on the reference type. (e.g a book's locationId can reference a library's objectId or an user's objectId depending on if the book is checked out or at a library.)
 - Admin and User can choose to log in with their gmail account. Google OAuth and Passport Js are used for this feature.
-- The Material-UI is used for styling of the pages
-- The app is being hosted on MongoDB Atlas and deployed on Heroku
+- The Material-UI is used for styling of the pages.
+- Redux for managing the front-end state.
+- The app is being hosted on MongoDB Atlas and deployed on Heroku.
 - Third Party APIs used are: 
     - Open Library API - for book information and cover image
     - Mapbox API - for admins to add a new library and display all libraries for users
